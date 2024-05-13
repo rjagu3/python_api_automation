@@ -1,0 +1,135 @@
+
+
+THe GET REQ:
+one of the most common HTTP method : trying to retrieve data sepecified resource.
+
+resp = requests.get("https://api.github.com")
+print(resp.status_code)
+
+### 200 ok
+### 404 page not found
+
+checking status code of response:
+import requests
+import json
+
+def valid_api():
+    resp = requests.get("https://api.github.com")
+    if resp.status_code:
+        print("Successs!!!")
+    else:
+        raise Exception(f"Non-success code:{resp.status_code}")
+
+def invalid_api():
+    try:
+        resp = requests.get("https://api.github.com")
+        resp.raise_for_status()
+    except HTTPError as http_err:
+        print(f"HTTP error found :{http_err}")
+    except Exception as e:
+        print(f"other error occured {err}")
+    else:
+        print("Success")
+
+valid_api()
+invalid_api()
+=====================================
+
+COntent:
+response of a GET req has some valuable info, known as payload, in the msg body.
+
+to access ### .content
+
+def check_payload_using_content():
+    response = requests.get("https://api.github.com")
+    print(response.content)
+    type(response.content)
+
+check_payload_using_content()
+
+=========CHARACTER ENCODING===================================
+
+def check_payload_using_content():
+    response = requests.get("https://api.github.com",params={"q": "language:python", "sort": "stars", "order": "desc"},)
+    #print(response.content)
+    #print(response.text)
+    print(response.encoding == 'utf-8')
+    #type(response.content)
+    x=response.json()
+    print(x['user_url'])
+    print(response.headers['content-type'])
+==================================================
+
+
+import requests
+import json
+
+def valid_api():
+    resp = requests.get("https://api.github.com")
+    if resp.status_code:
+        print("Successs!!!")
+    else:
+        raise Exception(f"Non-success code:{resp.status_code}")
+
+def check_payload_using_content():
+    response = requests.get("https://api.github.com",params={"q": "language:python", "sort": "stars", "order": "desc"},)
+    #print(response.content)
+    #print(response.text)
+    print(response.encoding == 'utf-8')
+    #type(response.content)
+    x=response.json()
+    print(x['user_url'])
+    print(response.headers['content-type'])
+
+
+
+def invalid_api():
+    try:
+        resp = requests.get("https://api.github.com")
+        resp.raise_for_status()
+    except HTTPError as http_err:
+        print(f"HTTP error found :{http_err}")
+    except Exception as e:
+        print(f"other error occured {err}")
+    else:
+        print("Success")
+
+#valid_api()
+#invalid_api()
+#check_payload_using_content()
+
+
+def put_method():
+    resp = requests.head('https://httpbin.org/get')
+    print(resp)
+    resp1 = requests.options('https://httpbin.org/get')
+    print(resp1)
+
+put_method()
+
+
+
+requests.get("https://httpbin.org/get")
+
+requests.post("https://httpbin.org/post", data={"key": "value"})
+
+requests.put("https://httpbin.org/put", data={"key": "value"})
+
+requests.delete("https://httpbin.org/delete")
+
+requests.head("https://httpbin.org/get")
+
+requests.patch("https://httpbin.org/patch", data={"key": "value"})
+
+requests.options("https://httpbin.org/get")
+
+>>> import requests
+
+>>> requests.post("https://httpbin.org/post", data={"key": "value"})
+<Response [200]>
+
+>>> requests.post("https://httpbin.org/post", data=[("key", "value")])
+<Response [200]>
+
+
+
